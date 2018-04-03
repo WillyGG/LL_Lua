@@ -1,15 +1,16 @@
 Stack = {rear = -1}
+Stack.__index = Stack
 
 -- constructor - initialise stack at passed size
 function Stack:new(size)
     local self = setmetatable({}, Stack)
 
     self.size = size
-
+    
     if size == nil then self.max_ind = 0
     else self.max_ind = size-1 end
 
-    for i=0, self.max_ind, 1 do 
+    for i=0, self.max_ind do 
         self[i] = nil
     end
     return self
