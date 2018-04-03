@@ -8,5 +8,7 @@ local value = 5
 Prince = Card:new()
 function Prince:new()
     local inst = Card:new(name, desc, quant, value)
+    setmetatable(inst, self)
+    self.__index = self
     return inst
 end

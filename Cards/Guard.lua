@@ -9,5 +9,7 @@ Guard = Card:new()
 
 function Guard:new()
     local inst = Card:new(g_name, g_desc, g_quant, g_value)
+    setmetatable(inst, self)
+    self.__index = self
     return inst
 end

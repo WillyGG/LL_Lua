@@ -9,5 +9,7 @@ Princess = Card:new()
 
 function Princess:new()
     local inst = Card:new(name, desc, quant, value)
+    setmetatable(inst, self)
+    self.__index = self
     return inst
 end

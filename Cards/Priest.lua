@@ -8,5 +8,7 @@ local value = 2
 Priest = Card:new()
 function Priest:new()
     local inst = Card:new(name, desc, quant, value)
+    setmetatable(inst, self)
+    self.__index = self
     return inst
 end
