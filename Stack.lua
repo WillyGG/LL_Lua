@@ -2,10 +2,13 @@ Stack = {rear = -1}
 
 -- constructor - initialise stack at passed size
 function Stack:new(size)
-    setmetatable({}, Stack)
+    local self = setmetatable({}, Stack)
 
     self.size = size
-    self.max_ind = size-1
+
+    if size == nil then self.max_ind = 0
+    else self.max_ind = size-1 end
+
     for i=0, self.max_ind, 1 do 
         self[i] = nil
     end
@@ -28,7 +31,7 @@ end
 
 -- returns true if the push was successful
 function Stack:push(item)
-    if self:isFull() then 
+    if self:isFull() == true then 
         return nil
     else
         self.rear = self.rear + 1
