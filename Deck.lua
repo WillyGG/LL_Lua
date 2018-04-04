@@ -15,7 +15,6 @@ function Deck:new()
     local inst = Stack:new(MAX_SIZE)
     setmetatable(inst, self)
     self.__index = self
-    self:init()
     return inst
 end
 
@@ -59,5 +58,13 @@ function Deck:init()
     end
 end
 
+function Deck:pop_and_show()
+    while not (self:isEmpty()) do
+        print(self:pop().name)
+    end
+end
+
 local deck = Deck:new()
+deck:init()
+deck:pop_and_show()
 return deck

@@ -10,6 +10,10 @@ function Card:new(name, desc, quant, value)
     return self
 end
 
+function Card:toString() 
+    return self.name
+end
+
 --local Guard = Card:new("Guard", "asdflkajsd", 5, 1)
 --local Princess = Card:new("Princess", "adlkfjasldk", 1, 8)
 --print("Guard name, ", Guard.name)

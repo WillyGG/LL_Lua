@@ -52,7 +52,3 @@ function Stack:pop()
         return toReturn
     end
 end
-
-function testFunction() 
-    return 1
-end
