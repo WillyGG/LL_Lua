@@ -1,4 +1,4 @@
-Stack = {rear = -1}
+Stack = {rear = -1} -- 0 indexed stack
 Stack.__index = Stack
 
 -- constructor - initialise stack at passed size

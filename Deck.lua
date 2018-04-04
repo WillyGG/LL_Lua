@@ -9,7 +9,7 @@ require "Cards.Priest"
 require "Cards.Princess"
 
 local MAX_SIZE = 16
-local Deck = Stack:new()
+Deck = Stack:new()
 
 function Deck:new()
     local inst = Stack:new(MAX_SIZE)
@@ -18,6 +18,7 @@ function Deck:new()
     return inst
 end
 
+-- populates the deck with cards in a random order
 function Deck:init()
     cards = {
         guard = Guard,
@@ -52,6 +53,8 @@ function Deck:pop_and_show()
     end
 end
 
+-- pass in a table of values, with integer indicies (1 based)
+-- returns another table with elements in random positions
 function shuffle_table(full_table) 
     local shuffled_t = {}
 
