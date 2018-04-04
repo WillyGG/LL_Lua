@@ -21,7 +21,7 @@ function Circular_Queue:isFull()
 end
 
 function Circular_Queue:isEmpty()
-    return self.front == -1 and self.rear == -1
+    return (self.front == -1 and self.rear == -1)
 end
 
 function Circular_Queue:push(item)
@@ -42,7 +42,7 @@ function Circular_Queue:push(item)
 end
 
 function Circular_Queue:pop()
-    if self:isEmpty() then
+    if self:isEmpty() == true then
         return false
     end
     local toReturn = self[self.front]

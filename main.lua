@@ -21,7 +21,7 @@ function populate_players_queue()
 
     local shuffled_players = shuffle_table(ordered_playes)
     for k,v in pairs(shuffled_players) do 
-        players_queue.push(v.name)
+        players_queue:push(v.name)
     end
 end
 
@@ -34,13 +34,18 @@ function love.load()
     deck = Deck:new()
     players_queue = Circular_Queue:new(#players)
     init_game()
-    while not players_queue.isEmpty() do 
-        print(players_queue.pop())
-    end
+    io.write(players_queue:peek())
+    
 end
 
 function love.draw()
-
+    local i = 100
+    while not players_queue:isEmpty() do 
+        local popped = players_queue:pop()
+        love.graphics.print(popped, i)
+        i = i + 100
+    end
+    --love.graphics.print("YOOOO")
 end
 
 function love.update()
