@@ -32,29 +32,17 @@ function Deck:init()
 
     -- populate all the cards in 
     local cards_ordered = {}
-    local avail_i = {}
     local curr_ind = 1
     for k,v in pairs(cards) do
         local inst = v:new() -- new instance to get the quantity
         for j=1, inst.quant do
-            cards_ordered[curr_ind] = v -- create new instance in cards_ordered
-            avail_i[curr_ind] = curr_ind
+            cards_ordered[curr_ind] = v -- create new copy
             curr_ind = curr_ind + 1
         end
     end
-
-    -- randomly shuffle the deck    
-    local max_ind = #avail_i
-    math.randomseed(os.time())
-    while (max_ind >= 1) do
-        local rand_ind = math.random(max_ind)
-        self:push(cards_ordered[rand_ind]:new()) -- push a new instance of a randomly selected card to deck
-        -- push all the other values down and make the last value nil
-        for i=rand_ind, (max_ind-1) do
-            avail_i[i] = avail_i[i+1]
-        end
-        avail_i[max_ind] = nil
-        max_ind = max_ind - 1 
+    local cards_shuff = shuffle_table(cards_ordered)
+    for k,v in pairs(cards_shuff) do
+        self:push(v:new())
     end
 end
 
@@ -64,7 +52,37 @@ function Deck:pop_and_show()
     end
 end
 
+function shuffle_table(full_table) 
+    local shuffled_t = {}
+
+    local avail_i = {}
+    local curr_ind = 1
+    for k,v in pairs(full_table) do
+        avail_i[curr_ind] = curr_ind
+        curr_ind = curr_ind + 1
+    end
+
+     -- randomly shuffle the deck    
+     local max_ind = #avail_i
+     local curr_ind = 1
+     math.randomseed(os.time())
+     while (max_ind >= 1) do
+         local rand_ind = math.random(max_ind)
+         local ele = full_table[avail_i[rand_ind]] 
+         shuffled_t[curr_ind] = ele
+         curr_ind = curr_ind + 1
+         -- push all the other avail indicies down and make the last value nil
+         for i=rand_ind, (max_ind-1) do
+             avail_i[i] = avail_i[i+1]
+         end
+         avail_i[max_ind] = nil
+         max_ind = max_ind - 1 
+     end
+
+     return shuffled_t
+end
+
 local deck = Deck:new()
 deck:init()
-deck:pop_and_show()
+
 return deck
