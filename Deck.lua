@@ -68,7 +68,10 @@ function shuffle_table(full_table)
      -- randomly shuffle the deck    
      local max_ind = #avail_i
      local curr_ind = 1
+     -- seed the random generator and pop the first few
      math.randomseed(os.time())
+     math.random()
+     math.random()
      while (max_ind >= 1) do
          local rand_ind = math.random(max_ind)
          local ele = full_table[avail_i[rand_ind]] 

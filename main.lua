@@ -5,10 +5,17 @@ require "Hand"
 players = {}
 players_queue = nil
 deck = nil
+current_player = nil
 
 function init_game() 
     deck:init()
     populate_players_queue()
+    init_hands()
+end
+
+
+function get_next_player()
+    current_player = players_queue:pop()
 end
 
 -- pushes players to the queue in a random order
@@ -26,6 +33,13 @@ function populate_players_queue()
     end
 end
 
+-- deal one card to every player in players table
+function init_hands()
+    for k,v in pairs(players) do
+        v.Hand:add(deck:pop())
+    end
+end
+
 function love.load()
     -- populate the players table
     players["WillyG"] = {name="WillyG", hand=Hand:new()}
@@ -34,24 +48,13 @@ function love.load()
 
     deck = Deck:new()
     players_queue = Circular_Queue:new(#players)
-    init_game()
-
-    local i = 10
-    while not players_queue:isEmpty() do 
-        local popped = players_queue:pop()
-        love.graphics.print(popped, i)
-        i = i + 10
-    end
-    
+    init_game()    
 end
 
 function love.draw()
-    
-    
-    love.graphics.print("YOOOO", 100)
 end
 
-function love.update()
+function love.update(dt)
 
 end
 
