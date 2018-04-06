@@ -84,7 +84,15 @@ function love.draw()
     current_player.hand:draw_hand()
     draw_players_in()
     show_next_player()
+    if love.mouse.isDown(1) then
+        local n_cards = current_player.hand.no_cards 
+        for i=1, n_cards do
+            local card = current_player.hand[i]
+            print(card.name, card:isClicked())
+        end
+    end
 end
+
 
 function love.update(dt)
 

@@ -15,12 +15,13 @@ function Baron:new()
 end
 
 function Baron:draw(x_arg, y_arg)
-    local x = x_arg or 100
-    local y = y_arg or 100
+    self.x = x_arg or 100
+    self.y = y_arg or 100
     -- draw the card border
-    love.graphics.setColor(204, 0, 153)
-    love.graphics.rectangle("fill", x, y, CARD_WIDTH, CARD_HEIGHT)
+    love.graphics.setColor(204, 0, 153, 0.7)
+    love.graphics.rectangle("fill", self.x, self.y, CARD_WIDTH, CARD_HEIGHT)
     -- draw the name 
     love.graphics.setColor(255,255,255)
-    love.graphics.print(self.name, x+15, y+15)
+    love.graphics.print(self.name, self.x+15, self.y+15)
 end
+

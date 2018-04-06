@@ -1,3 +1,5 @@
+require "Cards.Card"
+
 Hand = {no_cards = 0, avail_ind = 1, MAX_CARDS = 2}
 Hand.__index = Hand
 
@@ -79,11 +81,13 @@ function Hand:print_hand()
 end
 
 function Hand:draw_hand()
+    local gap_size = CARD_WIDTH  
+    local gap_const = 50
     for i=1, self.no_cards do
         local card = self[i]
         if card ~= nil then
-            local x = 100 * i
-            card:draw(x)
+            local x = (i-1) * gap_size + gap_const
+            card:draw(x, 100)
         end
     end
 end
