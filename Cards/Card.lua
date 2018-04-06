@@ -1,6 +1,9 @@
 Card = {name="", desc="", quant=0, value=0}
 Card.__index = Card
 
+CARD_HEIGHT = 200
+CARD_WIDTH = 100
+
 function Card:new(name, desc, quant, value)
     local self = setmetatable({}, Card)
     self.name = name

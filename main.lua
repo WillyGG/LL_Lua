@@ -38,15 +38,33 @@ end
 function update_and_draw() 
     current_player = players_queue:pop()
     local next_card = deck:pop()
-    current_player.hand.avail_ind
     current_player.hand:add(next_card)
 end
 
 function populate_players()
     -- populate the players table
-    players["WillyG"] = {name="WillyG", hand=Hand:new()}
-    players["Maz"] = {name="Maz", hand=Hand:new()}
-    players["Deccy"] = {name="Deccy", hand=Hand:new()}
+    players["WillyG"] = {name="WillyG", hand=Hand:new(), out=false}
+    players["Maz"] = {name="Maz", hand=Hand:new(), out=false}
+    players["Deccy"] = {name="Deccy", hand=Hand:new(), out=false}
+end
+
+function draw_players_in()
+    local i = 0
+    local X_CONST = 400
+    love.graphics.print("Players in:", X_CONST)
+    for k,v in pairs(players) do
+        if v.out == false then
+            local y = i * 50 + 15
+            love.graphics.print(v.name, X_CONST, y)
+            i = i + 1
+        end 
+    end
+end
+
+function show_next_player()
+    local X_CONST = 500
+    local next_player_name = players_queue:peek().name
+    love.graphics.print("Next Player:\n"..next_player_name, X_CONST)
 end
 
 function love.load()
@@ -64,6 +82,8 @@ end
 function love.draw()
     love.graphics.print(current_player.name)
     current_player.hand:draw_hand()
+    draw_players_in()
+    show_next_player()
 end
 
 function love.update(dt)
