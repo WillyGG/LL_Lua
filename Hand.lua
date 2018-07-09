@@ -5,12 +5,10 @@ Hand.__index = Hand
 
 function Hand:new()
     local self = setmetatable({}, Hand)
-    
-    -- populate the hand 
+    -- populate the hand
     for i=1, 2 do
         self[i] = nil
     end
-
     return self
 end
 
@@ -26,18 +24,18 @@ function Hand:add(card)
         self.avail_ind = -1
     else
         -- circle the avail ind
-        if self.avail_ind == 1 then 
+        if self.avail_ind == 1 then
             self.avail_ind = 2
-        elseif self.avail_ind == 2 then 
-            self.avail_ind = 1 
+        elseif self.avail_ind == 2 then
+            self.avail_ind = 1
         end
     end
     return true
 end
 
--- checks hand for card with card name, 
+-- checks hand for card with card name,
 -- if card name is found, it is returned
--- if not then nil is returned   
+-- if not then nil is returned
 function Hand:pop_card(card_name)
     if self:isEmpty() then
         return false
@@ -46,18 +44,18 @@ function Hand:pop_card(card_name)
     local toReturn = nil
     local i = 1
     local found = false
-
-    while found == false and i <= MAX_CARDS do
+    while not found and i <= self.MAX_CARDS do
         -- if found pop card from hand, decrement no cards and change avail_ind
-        if self[i].name == card_name then
+
+        if self[i] ~= nil and self[i].name == card_name then
             toReturn = self[i]
             self[i] = nil
-            no_cards = no_cards - 1
-            avail_ind = i
+            self.no_cards = self.no_cards - 1
+            self.avail_ind = i
+            found = true
         end
         i = i + 1
     end
-
     return toReturn
 end
 
@@ -72,7 +70,7 @@ function Hand:isEmpty()
 end
 
 function Hand:print_hand()
-    for i=1, self.no_cards do
+    for i=1, self.MAX_CARDS do
         local card = self[i]
         if card ~= nil then
             print(card.name)
@@ -81,12 +79,13 @@ function Hand:print_hand()
 end
 
 function Hand:draw_hand()
-    local gap_size = CARD_WIDTH  
-    local gap_const = 50
-    for i=1, self.no_cards do
+    local gap_size = CARD_WIDTH
+    local pad_const = 50
+    local gap_const = 20
+    for i=1, self.MAX_CARDS do
         local card = self[i]
         if card ~= nil then
-            local x = (i-1) * gap_size + gap_const
+            local x = (i-1) * CARD_WIDTH + (i-1)*gap_const + pad_const
             card:draw(x, 100)
         end
     end
